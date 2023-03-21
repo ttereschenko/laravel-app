@@ -5,19 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request): Response
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $user = new User($data);
-        $user->save();
-
+        $user = User::create($request->validated());
         $token = $user->createToken('LaravelPassportAuth')->accessToken;
-        $response = ['token' => $token];
 
-        return response($response, 201);
+        return response()->json(['token' => $token], Response::HTTP_CREATED);
     }
 }
