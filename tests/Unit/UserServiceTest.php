@@ -16,7 +16,7 @@ class UserServiceTest extends TestCase
     /**
      * @throws BindingResolutionException
      */
-    public function test_store_method(): void
+    public function test_store_method()
     {
         $userService = app()->make(UserService::class);
 
@@ -29,5 +29,6 @@ class UserServiceTest extends TestCase
         $createdUser = $userService->store($data);
 
         $this->assertInstanceOf(User::class, $createdUser);
+        $this->assertDatabaseHas('users', ['email' => $data['email']]);
     }
 }

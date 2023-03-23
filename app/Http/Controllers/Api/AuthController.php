@@ -16,8 +16,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $user = $this->userService->store($data);
+        $user = $this->userService->store($request->validated());
         $token = $user->createToken('LaravelPassportAuth')->accessToken;
 
         return response()->json(['token' => $token], Response::HTTP_CREATED);

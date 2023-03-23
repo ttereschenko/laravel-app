@@ -12,12 +12,6 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        Artisan::call('passport:install');
-    }
-
     public function test_register(): void
     {
         $data = [
