@@ -8,4 +8,10 @@ use Illuminate\Support\Facades\Artisan;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Artisan::call('passport:install');
+    }
 }
