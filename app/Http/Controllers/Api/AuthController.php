@@ -30,12 +30,11 @@ class AuthController extends Controller
         if ($user) {
             $token = $user->createToken('LaravelPassportAuth')->accessToken;
 
-            return response()->json(['token' => $token], Response::HTTP_CREATED);
+            return response()->json(['token' => $token], Response::HTTP_OK);
         }
 
-        return response()->json([
-            'message' => 'The provided credentials are incorrect',
-            'errors' => 'Unauthorised'],
+        return response()->json(
+            ['message' => 'The provided credentials are incorrect', 'errors' => 'Unauthorised'],
             Response::HTTP_UNAUTHORIZED
         );
     }
