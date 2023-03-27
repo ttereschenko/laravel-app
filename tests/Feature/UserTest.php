@@ -13,9 +13,7 @@ class UserTest extends TestCase
 
     public function test_update_user_info()
     {
-        $user = Passport::actingAs(
-            User::factory()->create(),
-        );
+        $user = Passport::actingAs(User::factory()->create());
         $email = 'test@test';
         $password = '12345678';
 
@@ -43,23 +41,19 @@ class UserTest extends TestCase
 
     public function test_list_users_emails()
     {
-        Passport::actingAs(
-            User::factory()->create(),
-        );
+        Passport::actingAs(User::factory()->create());
 
-        $this->getJson(route('users.list'))->assertOk();
+        $this->getJson(route('users'))->assertOk();
     }
 
     public function test_list_users_emails_if_user_unregistered()
     {
-        $this->getJson(route('users.list'))->assertUnauthorized();
+        $this->getJson(route('users'))->assertUnauthorized();
     }
 
     public function test_show_user_info()
     {
-        $user = Passport::actingAs(
-            User::factory()->create(),
-        );
+        $user = Passport::actingAs(User::factory()->create());
 
         $this->getJson(route('user.show', ['user' => $user->id]))->assertOk();
     }

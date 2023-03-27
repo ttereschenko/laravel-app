@@ -41,7 +41,7 @@ class UserService
         return $user;
     }
 
-    public function list(): array
+    public function getEmailsList(): array
     {
         return User::all()->pluck('email')->toArray();
     }

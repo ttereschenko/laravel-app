@@ -26,7 +26,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::put('/users/{user}', 'update')->name('users.update');
-        Route::get('/users', 'list')->name('users.list');
+        Route::get('/users', 'index')->name('users');
         Route::get('/users/{user}', 'show')->name('user.show');
     });
 });

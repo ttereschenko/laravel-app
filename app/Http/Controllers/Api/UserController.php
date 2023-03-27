@@ -23,15 +23,15 @@ class UserController extends Controller
         return response()->json(['message' => 'Updated successfully'], Response::HTTP_OK);
     }
 
-    public function list(): JsonResponse
+    public function index(): JsonResponse
     {
-        $emails = $this->userService->list();
+        $emails = $this->userService->getEmailsList();
 
         return response()->json(['users' => $emails], Response::HTTP_OK);
     }
 
-    public function show(ShowRequest $request, User $user): UserResource
+    public function show(ShowRequest $request, User $user): JsonResponse
     {
-        return new UserResource($user);
+        return response()->json(new UserResource($user), Response::HTTP_OK);
     }
 }
