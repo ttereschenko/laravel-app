@@ -6,8 +6,8 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function update(User $user): bool
+    public function update(User $user, User $model): bool
     {
-        return $user->id === auth()->id();
+        return $user->id === $model->id;
     }
 }

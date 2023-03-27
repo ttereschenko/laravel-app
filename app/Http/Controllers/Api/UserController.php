@@ -12,17 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller
 {
     public function __construct(private UserService $userService)
+    {}
+
+    public function update(UpdateRequest $request, User $user): JsonResponse
     {
-    }
+        $this->userService->update($user, $request->validated());
 
-    public function update(User $user, UpdateRequest $request): JsonResponse
-    {
-        if ($user->can('update', $user)) {
-            $this->userService->update($user, $request->validated());
-
-            return response()->json(['message' => 'Updated successfully'], Response::HTTP_OK);
-        }
-
-        return response()->json(['message' => 'Access denied'], Response::HTTP_FORBIDDEN);
+        return response()->json(['message' => 'Updated successfully'], Response::HTTP_OK);
     }
 }
