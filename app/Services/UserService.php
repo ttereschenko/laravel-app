@@ -40,4 +40,9 @@ class UserService
         $user->fill($data)->save();
         return $user;
     }
+
+    public function list(): array
+    {
+        return User::all()->pluck('email')->toArray();
+    }
 }
