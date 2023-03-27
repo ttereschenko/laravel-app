@@ -34,4 +34,10 @@ class UserService
             $user->forceFill(['password' => $data['password']])->save();
         });
     }
+
+    public function update(User $user, array $data): User
+    {
+        $user->fill($data)->save();
+        return $user;
+    }
 }
