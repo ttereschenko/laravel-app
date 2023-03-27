@@ -52,8 +52,6 @@ class UserTest extends TestCase
 
     public function test_list_users_emails_if_user_unregistered()
     {
-        User::factory()->create();
-
         $this->getJson(route('users.list'))->assertUnauthorized();
     }
 
