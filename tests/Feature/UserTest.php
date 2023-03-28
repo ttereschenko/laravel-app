@@ -65,4 +65,19 @@ class UserTest extends TestCase
 
         $this->getJson(route('user.show', ['user' => $users[1]]))->assertForbidden();
     }
+
+    public function test_delete_user()
+    {
+        $user = Passport::actingAs(User::factory()->create());
+
+        $this->deleteJson(route('user.delete', ['user' => $user->id]))->assertOk();
+    }
+
+    public function test_delete_other_users()
+    {
+        $users = User::factory(2)->create();
+        Passport::actingAs($users[0]);
+
+        $this->deleteJson(route('user.delete', ['user' => $users[1]]))->assertForbidden();
+    }
 }

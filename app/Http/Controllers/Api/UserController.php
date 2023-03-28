@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\UserResource;
@@ -33,5 +34,12 @@ class UserController extends Controller
     public function show(ShowRequest $request, User $user): JsonResponse
     {
         return response()->json(new UserResource($user), Response::HTTP_OK);
+    }
+
+    public function delete(DeleteRequest $request, User $user): JsonResponse
+    {
+        $this->userService->delete($user);
+
+        return response()->json(['message' => 'Deleted successfully'], Response::HTTP_OK);
     }
 }
