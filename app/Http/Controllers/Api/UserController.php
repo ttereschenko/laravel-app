@@ -7,11 +7,9 @@ use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\UserResource;
-use App\Mail\SendPdfFile;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -41,9 +39,6 @@ class UserController extends Controller
     public function delete(DeleteRequest $request, User $user): JsonResponse
     {
         $this->userService->delete($user);
-        $pdf = $this->userService->generatePdfFile();
-
-        Mail::to($user->email)->send(new SendPdfFile($pdf->output()));
 
         return response()->json(['message' => 'Deleted successfully'], Response::HTTP_OK);
     }
