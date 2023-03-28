@@ -28,5 +28,6 @@ Route::controller(UserController::class)->group(function () {
         Route::put('/users/{user}', 'update')->name('users.update');
         Route::get('/users', 'index')->name('users');
         Route::get('/users/{user}', 'show')->name('user.show');
+        Route::delete('/users/{user}', 'delete')->name('user.delete');
     });
 });

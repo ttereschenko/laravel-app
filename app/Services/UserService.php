@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as PdfFile;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -44,5 +46,15 @@ class UserService
     public function getEmailsList(): array
     {
         return User::all()->pluck('email')->toArray();
+    }
+
+    public function delete(User $user): ?bool
+    {
+        return $user->delete();
+    }
+
+    public function generatePdfFile(): PdfFile
+    {
+        return Pdf::loadView('emails.report');
     }
 }
